@@ -5,20 +5,24 @@ The Cat PHP - General Information:
 &nbsp;&nbsp;&nbsp;&nbsp;https://github.com/DanWin/le-chat-php
 <br/>
 <br/>
+
 [![Fork](https://img.shields.io/badge/Based-Fork-green)](#)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;**Le-Chat-PHP** *1.24.1* (DanWin)<br/>
 <br/>
+
 [![Original](https://img.shields.io/badge/Original-LE--CHAT-green)](https://4fvfamdpoulu2nms.onion.to/lechat/)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;The original perl **LE CHAT** script by **Lucky Eddie** can be found at [![History](https://img.shields.io/badge/Onion-green?logo=tor)](http://4fvfamdpoulu2nms.onion/lechat/) [his site](http://4fvfamdpoulu2nms.onion/lechat/) or via a tor2web proxy<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;like [this one](https://4fvfamdpoulu2nms.onion.to/lechat/) if you don't have Tor installed.
 <br/>
 <br/>
+
 ![Please Note:](https://img.shields.io/badge/Note-Warning-red?logo=AdBlock)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Please use the **Tor** links with care, people are able to do illegal activities within the **Tor** network, <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;we are not hold responsible for their's/your actions, please use with care. Also Note: **Tor** is not the <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;most stable or fast so these links might be slow or down at any given time.
 <br/>
 <br/>
+
 [![Tipbit](https://img.shields.io/badge/Tipbit-LE-informational)](#)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Now a piece of information about the origin of the name **"LE CHAT"** copied from the original script, <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;The **"LE"** in the name you can take as  **"Lucky Eddie"**, or since the script was meant to be lean <br/>
@@ -60,16 +64,20 @@ Installation Instructions:
     * **pdo_sqlite** if your using **SQLite**(file based DB)
     * **pdo_pgsql** for PostgreSQL
     * **pdo_mysql** for MySQL
+    
 <br/>
 <br/>
+
 **Optionally**, you can install:
     * The **gd** extension for the captcha feature
     * The **json** extension for save/restore
     * A **memcached** server and the **memcached** extension and change the configuaration to use memcached. This will lessen the database load a bit.
     * A **MySQL** or **PostgreSQL** server to use as an external database instead of **SQLite**
     * The **libsodium** extension needs (**PHP >= 7.2**) for encryption of messages and notes in the database
+    
 <br/>
 <br/>
+
 When you have everything installed and use MySQL or PostgreSQL, you'll have to create a database and a user for the chat.
 Then edit the configuration at the bottom of the script to reflect the appropriate database settings and to modify the chat settings the way you like them.
 Then copy the script to your web-server directory and call the script in your browser with a parameter like this:

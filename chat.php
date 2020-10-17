@@ -46,7 +46,6 @@ if(!isset($_REQUEST['session']) && isset($_COOKIE[COOKIENAME])){
 	$_REQUEST['session']=$_COOKIE[COOKIENAME];
 }
 $_REQUEST['session'] = preg_replace('/[^0-9a-zA-Z]/', '', $_REQUEST['session'] ?? '');
-load_lang();
 check_db();
 cron();
 route();
@@ -4244,10 +4243,10 @@ function load_lang(){
 		$language=LANG;
 		set_secure_cookie('language', $language);
 	}
-	require_once('lang_en.php'); //always include English
+	require_once('lang\lang_en.php'); //always include English
 	if($language!=='en'){
 		$T=[];
-		require_once("lang_$language.php"); //replace with translation if available
+		require_once("lang\lang_$language.php"); //replace with translation if available
 		foreach($T as $name=>$translation){
 			$I[$name]=$translation;
 		}
@@ -4258,9 +4257,21 @@ function isPOST() : bool {
     return $_SERVER['REQUEST_METHOD'] === 'POST';
 }
 
+//The Cat PHP Mod
+function checklang(string $lan_value){
+	global $I;
+	$GrabThis = $I[$lan_value];
+	if !empty($GrabThis]){
+		return $GrabThis;
+	}else{
+		return 'Unknown'
+	}
+}
+
 function load_config(){
 	mb_internal_encoding('UTF-8');
 	define('VERSION', '1.24.1'); // Script version
+	define('FORK', 'Rexzooly 1.24.1'); //The Chat PHP mod Fork version
 	define('DBVERSION', 42); // Database layout version
 	define('MSGENCRYPTED', false); // Store messages encrypted in the database to prevent other database users from reading them - true/false - visit the setup page after editing!
 	define('ENCRYPTKEY_PASS', 'MY_SECRET_KEY'); // Recommended length: 32. Encryption key for messages
@@ -4276,15 +4287,16 @@ function load_config(){
 		define('MEMCACHEDHOST', 'localhost'); // Memcached host
 		define('MEMCACHEDPORT', '11211'); // Memcached port
 	}
-	define('DBDRIVER', 0); // Selects the database driver to use - 0=MySQL, 1=PostgreSQL, 2=sqlite
+	define('DBDRIVER', 2); // Selects the database driver to use - 0=MySQL, 1=PostgreSQL, 2=sqlite
 	if(DBDRIVER===2){
 		define('SQLITEDBFILE', 'public_chat.sqlite'); // Filepath of the sqlite database, if sqlite is used - make sure it is writable for the webserver user
 	}
 	define('COOKIENAME', PREFIX . 'chat_session'); // Cookie name storing the session information
 	define('LANG', 'en'); // Default language
+	load_lang();
 	if (MSGENCRYPTED){
 		if (version_compare(PHP_VERSION, '7.2.0') < 0) {
-			die("You need at least PHP >= 7.2.x");
+			die(checklang('Setup_PHP_Version'));
 		}
 		//Do not touch: Compute real keys needed by encryption functions
 		if (strlen(ENCRYPTKEY_PASS) !== SODIUM_CRYPTO_AEAD_AES256GCM_KEYBYTES){

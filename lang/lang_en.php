@@ -1,8 +1,9 @@
 <?php
 /*
-* LE CHAT-PHP - a PHP Chat based on LE CHAT - English translation
+* The Cat PHP - a PHP Chat based on LE CHAT - English translation
 *
-* Copyright (C) 2015-2020 Daniel Winzen <daniel@danwin1210.me>
+* LE CHAT PHP Copyright (C) 2015-2020 Daniel Winzen <daniel@danwin1210.me>
+* The Cat PHP Mods Copyright (C) 2020 Rexzooly
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -371,4 +372,5 @@ $I=[
 	'resetpassword' => 'Reset password',
 	'resetsucc' => 'Successfully reset password for username %s. Please remove the password reset define from the script again.',
 	'backtosetup' => 'Back to setup',
+	'Setup_PHP_Version' => 'You need at least PHP >= 7.2.x'
 ];

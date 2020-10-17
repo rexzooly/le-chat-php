@@ -63,12 +63,8 @@ Installation Instructions:
 * **Database** Select one of the below database
     * **pdo_sqlite** if your using **SQLite**(file based DB)
     * **pdo_pgsql** for PostgreSQL
-    * **pdo_mysql** for MySQL
-    
-<br/>
-<br/>
-
-**Optionally** Install these for the extra options below.
+    * **pdo_mysql** for MySQL  
+* **Optionally** Install these for the extra options below.
     * The **gd** extension for the captcha feature
     * The **json** extension for save/restore
     * A **memcached** server and the **memcached** extension and change the configuaration to use memcached. This will lessen the database load a bit.

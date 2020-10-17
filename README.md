@@ -31,10 +31,10 @@ Features:
 * ![[**Language**:]](https://img.shields.io/badge/Dialect-green?logo=Google%20Translate&logoColor=white) Multiple languages
 * ![[**Users**:]](https://img.shields.io/badge/Users-green?logo=Opsgenie&logoColor=white) Staff, Members and guests
 * ![[**Guests:**:]](https://img.shields.io/badge/Guests-green?logo=Google%20Classroom&logoColor=white) Waiting room for guests
-* Moderatoral approval of new guests
-* Public, member, moderator and admin only chats
-* Private messages
-* Multi-line messages
+* ![[**Moderatoral:**:]](https://img.shields.io/badge/Moderatoral-green?logo=Mixcloud&logoColor=white) Moderatoral approval of new guests
+* ![[**Chat:**:]](https://img.shields.io/badge/Chat-green?logo=ProtonMail&logoColor=white) Public, member, moderator and admin only chats
+* ![[**Private:**:]](https://img.shields.io/badge/Private-green?logo=GUN%20Privacy%20Guard&logoColor=white) Private messages
+* ![[**More:**:]](https://img.shields.io/badge/Writen-green?logo=Stack%20Exchange&logoColor=white) Multi-line messages
 * Change font, colour and refresh rate in profile settings
 * Autologout when inactive for some time
 * Image embedding

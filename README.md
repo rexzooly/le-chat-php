@@ -8,8 +8,8 @@ This script is a fork of **LE CHAT PHP** by **DanWin** An up-to-date copy of his
 The original perl **LE CHAT** script by **Lucky Eddie** can be found at [![History](https://img.shields.io/badge/Onion-green?logo=tor)](http://4fvfamdpoulu2nms.onion/lechat/) [his site](http://4fvfamdpoulu2nms.onion/lechat/) or via a tor2web proxy like [this one](https://4fvfamdpoulu2nms.onion.to/lechat/) if you don't have Tor installed.
 <br/>
 <br/>
-![Please Note](https://img.shields.io/badge/Note-Warning-red?logo=AdBlock)<br/>
-Please use the **Tor** links with care, people are able to do illegal activities within the **Tor** network, we are not hold responsible for their's/your actions, please use with care.
+![Please Note:](https://img.shields.io/badge/Note-Warning-red?logo=AdBlock)<br/>
+Please use the **Tor** links with care, people are able to do illegal activities within the **Tor** network, we are not hold responsible for their's/your actions, please use with care. Also Note: **Tor** is not the most stable or fast so these links might be slow or down at any given time.
 <br/>
 <br/>
 <br/>
@@ -24,12 +24,12 @@ It may even be the French word for **"the"** if you prefer. Translated from *Fre
 Features:
 ---------
 
-* Optimized for Tor
-* No JavaScript needed
-* Cookies supported, but not needed
+* ![[**Onion**:]](https://img.shields.io/badge/Onion-green?logo=tor) Optimized for Tor
+* ![[**JS**:]](https://img.shields.io/badge/JS-green?logo=JavaScript) No JavaScript needed
+* [**Cookies**:] Supported, but not needed
 * Captcha
-* Multiple languages
-* Members and guests
+* ![[**Language**:]](https://img.shields.io/badge/JS-green?logo=Google%20Translate) Multiple languages
+* [**User Control**:] Staff, Members and guests
 * Waiting room for guests
 * Moderatoral approval of new guests
 * Public, member, moderator and admin only chats

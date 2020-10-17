@@ -1,11 +1,11 @@
 The Cat PHP - General Information:
 --------------------
 [![Original](https://img.shields.io/badge/Forked-LE--CHAT--PHP-green)](https://github.com/DanWin/le-chat-php/)<br/>
-    This script is a fork of **LE CHAT PHP** by **DanWin** An up-to-date copy of his script can be found here https://github.com/DanWin/le-chat-php
+&nbsp;&nbsp;&nbsp;&nbsp;This script is a fork of **LE CHAT PHP** by **DanWin** An up-to-date copy of his script can be found here https://github.com/DanWin/le-chat-php
 <br/>
 <br/>
 [![Fork](https://img.shields.io/badge/Based-Fork-green)](#)<br/>
-    **Le-Chat-PHP** *1.24.1* (DanWin)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;**Le-Chat-PHP** *1.24.1* (DanWin)<br/>
 <br/>
 [![Original](https://img.shields.io/badge/Original-LE--CHAT-green)](https://4fvfamdpoulu2nms.onion.to/lechat/)<br/>
 The original perl **LE CHAT** script by **Lucky Eddie** can be found at [![History](https://img.shields.io/badge/Onion-green?logo=tor)](http://4fvfamdpoulu2nms.onion/lechat/) [his site](http://4fvfamdpoulu2nms.onion/lechat/) or via a tor2web proxy like [this one](https://4fvfamdpoulu2nms.onion.to/lechat/) if you don't have Tor installed.

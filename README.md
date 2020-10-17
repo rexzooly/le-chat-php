@@ -8,7 +8,7 @@ This script is a fork of **LE CHAT PHP** by **DanWin** An up-to-date copy of his
 The original perl **LE CHAT** script by **Lucky Eddie** can be found at [![History](https://img.shields.io/badge/Onion-green?logo=tor)](http://4fvfamdpoulu2nms.onion/lechat/) [his site](http://4fvfamdpoulu2nms.onion/lechat/) or via a tor2web proxy like [this one](https://4fvfamdpoulu2nms.onion.to/lechat/) if you don't have Tor installed.
 <br/>
 <br/>
-![Please Note](https://img.shields.io/badge/Note-Warning-red?logo=AdBlock)
+![Please Note](https://img.shields.io/badge/Note-Warning-red?logo=AdBlock)<br/>
 Please use the **Tor** links with care, people are able to do illegal activities within the **Tor** network, we are not hold responsible for their's/your actions, please use with care.
 <br/>
 <br/>

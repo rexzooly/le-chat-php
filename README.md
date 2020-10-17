@@ -1,7 +1,8 @@
 The Cat PHP - General Information:
 --------------------
 [![Original](https://img.shields.io/badge/Forked-LE--CHAT--PHP-green)](https://github.com/DanWin/le-chat-php/)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;This script is a fork of **LE CHAT PHP** by **DanWin** An up-to-date copy of his script can be found here https://github.com/DanWin/le-chat-php
+&nbsp;&nbsp;&nbsp;&nbsp;This script is a fork of **LE CHAT PHP** by **DanWin** An up-to-date copy of his script can be found here <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;https://github.com/DanWin/le-chat-php
 <br/>
 <br/>
 [![Fork](https://img.shields.io/badge/Based-Fork-green)](#)<br/>
@@ -60,7 +61,7 @@ You will also need the **pdo_sqlite**, **pdo_mysql** or **pdo_pgsql** extension,
 * The **json** extension for save/restore
 * A **memcached** server and the **memcached** extension and change the configuaration to use memcached. This will lessen the database load a bit.
 * A **MySQL** or **PostgreSQL** server to use as an external database instead of **SQLite**
-* The **libsodium** extension needs (PHP >= 7.2) for encryption of messages and notes in the database
+* The **libsodium** extension needs (**PHP >= 7.2**) for encryption of messages and notes in the database
 
 When you have everything installed and use MySQL or PostgreSQL, you'll have to create a database and a user for the chat.
 Then edit the configuration at the bottom of the script to reflect the appropriate database settings and to modify the chat settings the way you like them.

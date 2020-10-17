@@ -8,15 +8,15 @@ The Cat PHP - General Information:
 &nbsp;&nbsp;&nbsp;&nbsp;**Le-Chat-PHP** *1.24.1* (DanWin)<br/>
 <br/>
 [![Original](https://img.shields.io/badge/Original-LE--CHAT-green)](https://4fvfamdpoulu2nms.onion.to/lechat/)<br/>
-The original perl **LE CHAT** script by **Lucky Eddie** can be found at [![History](https://img.shields.io/badge/Onion-green?logo=tor)](http://4fvfamdpoulu2nms.onion/lechat/) [his site](http://4fvfamdpoulu2nms.onion/lechat/) or via a tor2web proxy like [this one](https://4fvfamdpoulu2nms.onion.to/lechat/) if you don't have Tor installed.
+&nbsp;&nbsp;&nbsp;&nbsp;The original perl **LE CHAT** script by **Lucky Eddie** can be found at [![History](https://img.shields.io/badge/Onion-green?logo=tor)](http://4fvfamdpoulu2nms.onion/lechat/) [his site](http://4fvfamdpoulu2nms.onion/lechat/) or via a tor2web proxy like [this one](https://4fvfamdpoulu2nms.onion.to/lechat/) if you don't have Tor installed.
 <br/>
 <br/>
 ![Please Note:](https://img.shields.io/badge/Note-Warning-red?logo=AdBlock)<br/>
-Please use the **Tor** links with care, people are able to do illegal activities within the **Tor** network, we are not hold responsible for their's/your actions, please use with care. Also Note: **Tor** is not the most stable or fast so these links might be slow or down at any given time.
+&nbsp;&nbsp;&nbsp;&nbsp;Please use the **Tor** links with care, people are able to do illegal activities within the **Tor** network, we are not hold responsible for their's/your actions, please use with care. Also Note: **Tor** is not the most stable or fast so these links might be slow or down at any given time.
 <br/>
 <br/>
 [![Tipbit](https://img.shields.io/badge/Tipbit-LE-informational)](#)<br/>
-Now a piece of information about the origin of the name **"LE CHAT"** copied from the original script:
+&nbsp;&nbsp;&nbsp;&nbsp;Now a piece of information about the origin of the name **"LE CHAT"** copied from the original script:
 The **"LE"** in the name you can take as  **"Lucky Eddie"**, or since the script was meant to be lean and easy on server resources, as **"Light Edition"**.
 It may even be the French word for **"the"** if you prefer. Translated from *French* to *English*, **"le chat"** means: **"the cat"**.
 <br/>

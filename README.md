@@ -8,7 +8,7 @@ The Cat PHP - General Information:
 &nbsp;&nbsp;&nbsp;&nbsp;**Le-Chat-PHP** *1.24.1* (DanWin)<br/>
 <br/>
 [![Original](https://img.shields.io/badge/Original-LE--CHAT-green)](https://4fvfamdpoulu2nms.onion.to/lechat/)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;The original perl **LE CHAT** script by **Lucky Eddie** can be found at [![History](https://img.shields.io/badge/Onion-green?logo=tor)](http://4fvfamdpoulu2nms.onion/lechat/) [his site](http://4fvfamdpoulu2nms.onion/lechat/) or via a tor2web proxy 
+&nbsp;&nbsp;&nbsp;&nbsp;The original perl **LE CHAT** script by **Lucky Eddie** can be found at [![History](https://img.shields.io/badge/Onion-green?logo=tor)](http://4fvfamdpoulu2nms.onion/lechat/) [his site](http://4fvfamdpoulu2nms.onion/lechat/) or via a tor2web proxy<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;like [this one](https://4fvfamdpoulu2nms.onion.to/lechat/) if you don't have Tor installed.
 <br/>
 <br/>

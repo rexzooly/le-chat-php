@@ -82,6 +82,8 @@ If you never used regex before, check out [this starting guide](http://docs.acti
 
 Live demo:
 ----------
+This live demo is not created by *Rexzooly* and accepts no responsibility for you using these services.
+
 
 If you want to see the script in action, you can visit my [Tor hidden service](http://danschat356lctri3zavzh6fbxg2a7lo6z3etgkctzzpspewu7zdsaqd.onion/chat.php) or via a tor2web proxy like [this one](https://chat.danwin1210.me/chat.php) if you don't have Tor installed.
 Considering this is a hidden service, you should be prepared for the worst case, as people tend to do illegal activities in the Tor network.

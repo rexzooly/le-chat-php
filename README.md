@@ -5,7 +5,11 @@ This script is a fork of **LE CHAT PHP** by **DanWin** An up-to-date copy of his
 <br/>
 <br/>
 [![History](https://img.shields.io/badge/History-LE--CHAT-green)](https://4fvfamdpoulu2nms.onion.to/lechat/)<br/>
-The original perl LE CHAT script by Lucky Eddie can be downloaded at [![History](https://img.shields.io/badge/Onion-green?logo=tor)](http://4fvfamdpoulu2nms.onion/lechat/) [his site](http://4fvfamdpoulu2nms.onion/lechat/) or via a tor2web proxy like [this one](https://4fvfamdpoulu2nms.onion.to/lechat/) if you don't have Tor installed.
+The original perl **LE CHAT** script by **Lucky Eddie** can be found at [![History](https://img.shields.io/badge/Onion-green?logo=tor)](http://4fvfamdpoulu2nms.onion/lechat/) [his site](http://4fvfamdpoulu2nms.onion/lechat/) or via a tor2web proxy like [this one](https://4fvfamdpoulu2nms.onion.to/lechat/) if you don't have Tor installed.
+<br/>
+<br/>
+![Please Note](https://img.shields.io/badge/Note-Warning-red?logo=AdBlock)
+Please use the **Tor** links with care, people are able to do illegal activities within the **Tor** network, we are not hold responsible for their's/your actions, please use with care.
 <br/>
 <br/>
 [![Tipbit](https://img.shields.io/badge/Tipbit-LE-informational)](#)<br/>
@@ -95,4 +99,4 @@ If you want to see the script in action, you can visit DanWin's [Tor hidden serv
 
 
 ![Please Note](https://img.shields.io/badge/Note-Warning-red?logo=AdBlock)
-Considering this is a hidden service, you should be prepared for the worst case, as people are able to do illegal activities within the Tor network, we are not hold responsible for their actions nor your actions, please use with care.
+Considering this is a hidden service, you should be prepared for the worst case, as people are able to do illegal activities within the Tor network, we are not hold responsible for their's/your actions, please use with care.

@@ -62,6 +62,8 @@ Then copy the script to your web-server directory and call the script in your br
 Now you can create the Superadmin account. With this account you can administer the chat and add new members and set the guest access.
 As soon as you are done with the setup, all necessary database tables will be created and the chat can be used.
 Note: If you updated the script, please visit http://(server)/(script-name).php?action=setup again, to make sure, that any database changes are applied and no errors occure.
+<br/>
+<br/>
 
 Translating:
 ------------
@@ -77,6 +79,7 @@ To update your translation, you can copy each new string to your translation fil
 <br/>
 <br/>
 <br/>
+
 Regex:
 ------
 

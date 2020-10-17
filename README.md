@@ -35,9 +35,9 @@ Features:
 * ![[**Chat:**:]](https://img.shields.io/badge/Chat-green?logo=ProtonMail&logoColor=white) Public, member, moderator and admin only chats
 * ![[**Private:**:]](https://img.shields.io/badge/Private-green?logo=GUN%20Privacy%20Guard&logoColor=white) Private messages
 * ![[**More:**:]](https://img.shields.io/badge/Writen-green?logo=Stack%20Exchange&logoColor=white) Multi-line messages
-* Change font, colour and refresh rate in profile settings
-* Autologout when inactive for some time
-* Image embedding
+* ![[**Custom:**:]](https://img.shields.io/badge/Custom-green) Change font, colour and refresh rate in profile settings
+* ![[**Inactive:**:]](https://img.shields.io/badge/Inactive-green) Autologout when inactive for some time
+* ![[**Inactive:**:]](https://img.shields.io/badge/Inactive-green?logo=Imgur&logoColor=white)Image embedding
 * Notes for admins and moderators
 * Clone the chat to have multiple tabs
 * Kick chatters

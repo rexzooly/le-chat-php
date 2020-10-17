@@ -56,18 +56,20 @@ Installation Instructions:
 **Basic Installation Need**:
 * Webserver
 * **PHP** with **pdo**, **pcre**, **mbstring** & **data**
-* **Database**
+* **Database** Select one of the below database
     * **pdo_sqlite** if your using **SQLite**(file based DB)
     * **pdo_pgsql** for PostgreSQL
     * **pdo_mysql** for MySQL
-
+<br/>
+<br/>
 **Optionally**, you can install:
-* The **gd** extension for the captcha feature
-* The **json** extension for save/restore
-* A **memcached** server and the **memcached** extension and change the configuaration to use memcached. This will lessen the database load a bit.
-* A **MySQL** or **PostgreSQL** server to use as an external database instead of **SQLite**
-* The **libsodium** extension needs (**PHP >= 7.2**) for encryption of messages and notes in the database
-
+    * The **gd** extension for the captcha feature
+    * The **json** extension for save/restore
+    * A **memcached** server and the **memcached** extension and change the configuaration to use memcached. This will lessen the database load a bit.
+    * A **MySQL** or **PostgreSQL** server to use as an external database instead of **SQLite**
+    * The **libsodium** extension needs (**PHP >= 7.2**) for encryption of messages and notes in the database
+<br/>
+<br/>
 When you have everything installed and use MySQL or PostgreSQL, you'll have to create a database and a user for the chat.
 Then edit the configuration at the bottom of the script to reflect the appropriate database settings and to modify the chat settings the way you like them.
 Then copy the script to your web-server directory and call the script in your browser with a parameter like this:

@@ -13,7 +13,9 @@ The Cat PHP - General Information:
 <br/>
 <br/>
 ![Please Note:](https://img.shields.io/badge/Note-Warning-red?logo=AdBlock)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;Please use the **Tor** links with care, people are able to do illegal activities within the **Tor** network, we are not hold responsible for their's/your actions, please use with care. Also Note: **Tor** is not the most stable or fast so these links might be slow or down at any given time.
+&nbsp;&nbsp;&nbsp;&nbsp;Please use the **Tor** links with care, people are able to do illegal activities within the **Tor** network, <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;we are not hold responsible for their's/your actions, please use with care. Also Note: **Tor** is not the <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;most stable or fast so these links might be slow or down at any given time.
 <br/>
 <br/>
 [![Tipbit](https://img.shields.io/badge/Tipbit-LE-informational)](#)<br/>

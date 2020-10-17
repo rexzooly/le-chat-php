@@ -19,9 +19,10 @@ The Cat PHP - General Information:
 <br/>
 <br/>
 [![Tipbit](https://img.shields.io/badge/Tipbit-LE-informational)](#)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;Now a piece of information about the origin of the name **"LE CHAT"** copied from the original script:
-The **"LE"** in the name you can take as  **"Lucky Eddie"**, or since the script was meant to be lean and easy on server resources, as **"Light Edition"**.
-It may even be the French word for **"the"** if you prefer. Translated from *French* to *English*, **"le chat"** means: **"the cat"**.
+&nbsp;&nbsp;&nbsp;&nbsp;Now a piece of information about the origin of the name **"LE CHAT"** copied from the original script, <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The **"LE"** in the name you can take as  **"Lucky Eddie"**, or since the script was meant to be lean <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;and easy on server resources, as **"Light Edition"**. It may even be the French word for **"the"** if <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;you prefer. Translated from *French* to *English*, **"le chat"** means: **"the cat"**.
 <br/>
 <br/>
 

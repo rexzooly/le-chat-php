@@ -1,5 +1,5 @@
-Installation Instructions:	Installation Instructions:
---------------------------	--------------------------
+Installation Instructions:
+--------------------------
 
 
 You'll need to have php with pdo, pcre, mbstring and date extension and a web-server installed.	You'll need to have php with pdo, pcre, mbstring and date extension, and a web-server installed.

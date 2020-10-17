@@ -68,7 +68,7 @@ Installation Instructions:
 <br/>
 <br/>
 
-**Optionally**, you can install:
+**Optionally** Install these for the extra options below.
     * The **gd** extension for the captcha feature
     * The **json** extension for save/restore
     * A **memcached** server and the **memcached** extension and change the configuaration to use memcached. This will lessen the database load a bit.

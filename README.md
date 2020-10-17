@@ -53,8 +53,13 @@ Key Features:
 
 Installation Instructions:
 --------------------------
-You'll need to have **php** with **pdo**, **pcre**, **mbstring** and **date** extension and a web-server installed.
-You will also need the **pdo_sqlite**, **pdo_mysql** or **pdo_pgsql** extension, depending on which database you choose.
+**Basic Installation Need**:
+* Webserver
+* **PHP** with **pdo**, **pcre**, **mbstring** & **data**
+* **Database**
+    * **pdo_sqlite** if your using **SQLite**(file based DB)
+    * **pdo_pgsql** for PostgreSQL
+    * **pdo_mysql** for MySQL
 
 **Optionally**, you can install:
 * The **gd** extension for the captcha feature

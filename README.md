@@ -1,15 +1,19 @@
 General Information:
 --------------------
 [![Original](https://img.shields.io/badge/Original-LE--CHAT--PHP-green)](https://github.com/DanWin/le-chat-php/)<br/>
-This is a PHP Chat based on LE CHAT PHP by DanWin An up-to-date copy of his script can be downloaded at https://github.com/DanWin/le-chat-php
+This script is a fork of **LE CHAT PHP** by **DanWin** An up-to-date copy of his script can be found here https://github.com/DanWin/le-chat-php
+
 
 [![History](https://img.shields.io/badge/History-LE--CHAT-green)](https://4fvfamdpoulu2nms.onion.to/lechat/)<br/>
 The original perl LE CHAT script by Lucky Eddie can be downloaded at [![History](https://img.shields.io/badge/Onion-green?logo=tor)](http://4fvfamdpoulu2nms.onion/lechat/) [his site](http://4fvfamdpoulu2nms.onion/lechat/) or via a tor2web proxy like [this one](https://4fvfamdpoulu2nms.onion.to/lechat/) if you don't have Tor installed.
+
 
 [![Tipbit](https://img.shields.io/badge/Tipbit-LE-informational)](#)<br/>
 Now a piece of information about the origin of the name **"LE CHAT"** copied from the original script:
 The **"LE"** in the name you can take as  **"Lucky Eddie"**, or since the script was meant to be lean and easy on server resources, as **"Light Edition"**.
 It may even be the French word for **"the"** if you prefer. Translated from *French* to *English*, **"le chat"** means: **"the cat"**.
+
+
 
 Features:
 ---------

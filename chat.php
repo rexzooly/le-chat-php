@@ -2,7 +2,7 @@
 /*
 * LE CHAT-PHP - a PHP Chat based on LE CHAT - Main program
 *
-* Copyright (C) 2015-2018 Daniel Winzen <d@winzen4.de>
+* Copyright (C) 2015-2020 Daniel Winzen <daniel@danwin1210.me>
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -32,15 +32,15 @@
 * 9 - Private messages
 */
 
-send_headers();
 // initialize and load variables/configuration
+load_config();
 $I=[];// Translations
 $L=[];// Languages
 $U=[];// This user data
-$db;// Database connection
-$memcached;// Memcached connection
-$language;// user selected language
-load_config();
+$db = null;// Database connection
+$memcached = null;// Memcached connection
+$language = LANG;// user selected language
+$styles = []; //css styles
 // set session variable to cookie if cookies are enabled
 if(!isset($_REQUEST['session']) && isset($_COOKIE[COOKIENAME])){
 	$_REQUEST['session']=$_COOKIE[COOKIENAME];
@@ -78,7 +78,7 @@ function route(){
 			send_post(validate_input());
 		}
 		send_post();
-	}elseif($_REQUEST['action']==='login'){
+	}elseif($_REQUEST['action']==='login' && isPOST()){
 		check_login();
 		send_frameset();
 	}elseif($_REQUEST['action']==='controls'){
@@ -87,7 +87,7 @@ function route(){
 	}elseif($_REQUEST['action']==='greeting'){
 		check_session();
 		send_greeting();
-	}elseif($_REQUEST['action']==='delete'){
+	}elseif($_REQUEST['action']==='delete' && isPOST()){
 		check_session();
 		if($_REQUEST['what']==='all'){
 			if(isset($_REQUEST['confirm'])){
@@ -99,7 +99,7 @@ function route(){
 			del_last_message();
 		}
 		send_post();
-	}elseif($_REQUEST['action']==='profile'){
+	}elseif($_REQUEST['action']==='profile' && isPOST()){
 		check_session();
 		$arg='';
 		if(!isset($_REQUEST['do'])){
@@ -113,13 +113,13 @@ function route(){
 			}
 		}
 		send_profile($arg);
-	}elseif($_REQUEST['action']==='logout'){
+	}elseif($_REQUEST['action']==='logout' && isPOST()){
 		kill_session();
 		send_logout();
 	}elseif($_REQUEST['action']==='colours'){
 		check_session();
 		send_colours();
-	}elseif($_REQUEST['action']==='notes'){
+	}elseif($_REQUEST['action']==='notes' && isPOST()){
 		check_session();
 		if(isset($_REQUEST['do']) && $_REQUEST['do']==='admin' && $U['status']>6){
 			send_notes(0);
@@ -133,7 +133,7 @@ function route(){
 	}elseif($_REQUEST['action']==='help'){
 		check_session();
 		send_help();
-	}elseif($_REQUEST['action']==='inbox'){
+	}elseif($_REQUEST['action']==='inbox' && isPOST()){
 		check_session();
 		if(isset($_REQUEST['do'])){
 			clean_inbox_selected();
@@ -141,10 +141,10 @@ function route(){
 		send_inbox();
 	}elseif($_REQUEST['action']==='download'){
 		send_download();
-	}elseif($_REQUEST['action']==='admin'){
+	}elseif($_REQUEST['action']==='admin' && isPOST()){
 		check_session();
 		send_admin(route_admin());
-	}elseif($_REQUEST['action']==='setup'){
+	}elseif($_REQUEST['action']==='setup' && isPOST()){
 		route_setup();
 	}else{
 		send_login();
@@ -187,7 +187,7 @@ function route_admin(){
 		if(isset($_REQUEST['kick']) && isset($_REQUEST['nick'])){
 			kick_chatter([$_REQUEST['nick']], '', false);
 		}elseif(isset($_REQUEST['logout']) && isset($_REQUEST['nick'])){
-			logout_chatter([$_REQUEST['nick']], '', false);
+			logout_chatter([$_REQUEST['nick']]);
 		}
 		send_sessions();
 	}elseif($_REQUEST['do']==='register'){
@@ -249,35 +249,33 @@ function route_setup(){
 }
 
 //  html output subs
-function print_stylesheet($init=false){
-	global $U;
-	//default css
-	echo '<style type="text/css">';
-	echo 'body{background-color:#000000;color:#FFFFFF;font-size:14px;text-align:center;} ';
-	echo 'a:visited{color:#B33CB4;} a:active{color:#FF0033;} a:link{color:#0000FF;} #messages{word-wrap:break-word;} ';
-	echo 'input,select,textarea{color:#FFFFFF;background-color:#000000;} .messages a img{width:15%} .messages a:hover img{width:35%} ';
-	echo '.error{color:#FF0033;text-align:left;} .delbutton{background-color:#660000;} .backbutton{background-color:#004400;} #exitbutton{background-color:#AA0000;} ';
-	echo '.setup table table,.admin table table,.profile table table{width:100%;text-align:left} ';
-	echo '.alogin table,.init table,.destroy_chat table,.delete_account table,.sessions table,.filter table,.linkfilter table,.notes table,.approve_waiting table,.del_confirm table,.profile table,.admin table,.backup table,.setup table{margin-left:auto;margin-right:auto;} ';
-	echo '.setup table table table,.admin table table table,.profile table table table{border-spacing:0px;margin-left:auto;margin-right:unset;width:unset;} ';
-	echo '.setup table table td,.backup #restoresubmit,.backup #backupsubmit,.admin table table td,.profile table table td,.login td+td,.alogin td+td{text-align:right;} ';
-	echo '.init td,.backup #restorecheck td,.admin #clean td,.admin #regnew td,.session td,.messages,.inbox,.approve_waiting td,.choose_messages,.greeting,.help,.login td,.alogin td{text-align:left;} ';
-	echo '.messages #chatters{max-height:100px;overflow-y:auto;} .messages #chatters a{text-decoration-line:none;} .messages #chatters table{border-spacing:0px;} ';
-	echo '.messages #chatters th,.messages #chatters td,.post #firstline{vertical-align:top;} ';
-	echo '.approve_waiting #action td:only-child,.help #backcredit,.login td:only-child,.alogin td:only-child,.init td:only-child{text-align:center;} .sessions td,.sessions th,.approve_waiting td,.approve_waiting th{padding: 5px;} ';
-	echo '.sessions td td{padding: 1px;} .messages #bottom_link{position:fixed;top:0.5em;right:0.5em;} .messages #top_link{position:fixed;bottom:0.5em;right:0.5em;} ';
-	echo '.post table,.controls table,.login table{border-spacing:0px;margin-left:auto;margin-right:auto;} .login table{border:2px solid;} .controls{overflow-y:none;} ';
-	echo '#manualrefresh{display:block;position:fixed;text-align:center;left:25%;width:50%;top:-200%;animation:timeout_messages ';
+function prepare_stylesheets($init = false){
+	global $U, $db, $styles;
+	$styles['fatal_error'] = 'body{background-color:#000000;color:#FF0033}';
+	$styles['default'] = 'body,frame{background-color:#000000;color:#FFFFFF;font-size:14px;text-align:center} ';
+	$styles['default'] .= 'a:visited{color:#B33CB4} a:active{color:#FF0033} a:link{color:#0000FF} #messages{word-wrap:break-word} ';
+	$styles['default'] .= 'input,select,textarea{color:#FFFFFF;background-color:#000000} .messages a img{width:15%} .messages a:hover img{width:35%} ';
+	$styles['default'] .= '.error{color:#FF0033;text-align:left} .delbutton{background-color:#660000} .backbutton{background-color:#004400} #exitbutton{background-color:#AA0000} ';
+	$styles['default'] .= '.setup table table,.admin table table,.profile table table{width:100%;text-align:left} ';
+	$styles['default'] .= '.alogin table,.init table,.destroy_chat table,.delete_account table,.sessions table,.filter table,.linkfilter table,.notes table,.approve_waiting table,.del_confirm table,.profile table,.admin table,.backup table,.setup table{margin-left:auto;margin-right:auto} ';
+	$styles['default'] .= '.setup table table table,.admin table table table,.profile table table table{border-spacing:0px;margin-left:auto;margin-right:unset;width:unset} ';
+	$styles['default'] .= '.setup table table td,.backup #restoresubmit,.backup #backupsubmit,.admin table table td,.profile table table td,.login td+td,.alogin td+td{text-align:right} ';
+	$styles['default'] .= '.init td,.backup #restorecheck td,.admin #clean td,.admin #regnew td,.session td,.messages,.inbox,.approve_waiting td,.choose_messages,.greeting,.help,.login td,.alogin td{text-align:left} ';
+	$styles['default'] .= '.messages #chatters{max-height:100px;overflow-y:auto} .messages #chatters a{text-decoration-line:none} .messages #chatters table{border-spacing:0px} ';
+	$styles['default'] .= '.messages #chatters th,.messages #chatters td,.post #firstline{vertical-align:top} ';
+	$styles['default'] .= '.approve_waiting #action td:only-child,.help #backcredit,.login td:only-child,.alogin td:only-child,.init td:only-child{text-align:center} .sessions td,.sessions th,.approve_waiting td,.approve_waiting th{padding: 5px} ';
+	$styles['default'] .= '.sessions td td{padding: 1px} .messages #bottom_link{position:fixed;top:0.5em;right:0.5em} .messages #top_link{position:fixed;bottom:0.5em;right:0.5em} ';
+	$styles['default'] .= '.post table,.controls table,.login table{border-spacing:0px;margin-left:auto;margin-right:auto} .login table{border:2px solid} .controls{overflow-y:none} ';
+	$styles['default'] .= '#manualrefresh{display:block;position:fixed;text-align:center;left:25%;width:50%;top:-200%;animation:timeout_messages ';
 	if(isset($U['refresh'])){
-		echo $U['refresh']+20;
+		$styles['default'] .= $U['refresh']+20;
 	}else{
-		echo '160';
+		$styles['default'] .='160';
 	}
-	echo 's forwards;z-index:2;background-color:#500000;border:2px solid #ff0000;} ';
-	echo '@keyframes timeout_messages{0%{top:-200%;} 99%{top:-200%;} 100%{top:0%;}} ';
-	echo '.notes textarea{height:80vh;width:80%;}';
-	echo '</style>';
-	if($init){
+	$styles['default'] .= 's forwards;z-index:2;background-color:#500000;border:2px solid #ff0000} ';
+	$styles['default'] .= '@keyframes timeout_messages{0%{top:-200%} 99%{top:-200%} 100%{top:0%}} ';
+	$styles['default'] .= '.notes textarea{height:80vh;width:80%}';
+	if($init || ! $db instanceof PDO){
 		return;
 	}
 	$css=get_setting('css');
@@ -287,8 +285,18 @@ function print_stylesheet($init=false){
 	}else{
 		$colbg=get_setting('colbg');
 	}
+	$styles['custom'] = preg_replace("/(\r?\n|\r\n?)/u", '', "body,frame{background-color:#$colbg;color:#$coltxt} $css");
+}
+
+function print_stylesheet($init = false){
+	global $styles;
+	//default css
+	echo "<style type=\"text/css\">$styles[default]</style>";
+	if($init){
+		return;
+	}
 	//overwrite with custom css
-	echo "<style type=\"text/css\">body{background-color:#$colbg;color:#$coltxt;} $css</style>";
+	echo "<style type=\"text/css\">$styles[custom]</style>";
 }
 
 function print_end(){
@@ -297,11 +305,11 @@ function print_end(){
 }
 
 function credit(){
-	return '<small><br><br><a target="_blank" href="https://github.com/DanWin/le-chat-php">LE CHAT-PHP - ' . VERSION . '</a></small>';
+	return '<small><br><br><a target="_blank" href="https://github.com/DanWin/le-chat-php" rel="noopener">LE CHAT-PHP - ' . VERSION . '</a></small>';
 }
 
 function meta_html(){
-	return '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0"><meta http-equiv="expires" content="0"><meta name="referrer" content="no-referrer">';
+	return '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="referrer" content="no-referrer">';
 }
 
 function form($action, $do=''){
@@ -341,17 +349,16 @@ function thr(){
 }
 
 function print_start($class='', $ref=0, $url=''){
-	global $I;
+	global $I, $language;
+	prepare_stylesheets($class === 'init');
+	send_headers();
 	if(!empty($url)){
 		$url=str_replace('&amp;', '&', $url);// Don't escape "&" in URLs here, it breaks some (older) browsers and js refresh!
 		header("Refresh: $ref; URL=$url");
 	}
-	echo '<!DOCTYPE html><html><head>'.meta_html();
+	echo '<!DOCTYPE html><html lang="'.$language.'"><head>'.meta_html();
 	if(!empty($url)){
 		echo "<meta http-equiv=\"Refresh\" content=\"$ref; URL=$url\">";
-		$ref+=5;//only use js if browser refresh stopped working
-		$ref*=1000;//js uses milliseconds
-		echo "<script type=\"text/javascript\">setTimeout(function(){window.location.replace(\"$url\");}, $ref);</script>";
 	}
 	if($class==='init'){
 		echo "<title>$I[init]</title>";
@@ -393,7 +400,7 @@ function send_redirect($url){
 
 function send_access_denied(){
 	global $I, $U;
-	header('HTTP/1.1 403 Forbidden');
+	http_response_code(403);
 	print_start('access_denied');
 	echo "<h1>$I[accessdenied]</h1>".sprintf($I['loggedinas'], style_this(htmlspecialchars($U['nickname']), $U['style'])).'<br>';
 	echo form('logout');
@@ -773,7 +780,7 @@ function restore_backup($C){
 				$note['type']=1;
 			}
 			if(MSGENCRYPTED){
-                $note['text']=base64_encode(sodium_crypto_aead_aes256gcm_encrypt($note['text'], '', AES_IV, ENCRYPTKEY));
+				$note['text']=base64_encode(sodium_crypto_aead_aes256gcm_encrypt($note['text'], '', AES_IV, ENCRYPTKEY));
 			}
 			$stmt->execute([$note['type'], $note['lastedited'], $note['editedby'], $note['text']]);
 		}
@@ -809,7 +816,7 @@ function send_backup($C){
 			$result=$db->query('SELECT * FROM ' . PREFIX . "notes;");
 			while($note=$result->fetch(PDO::FETCH_ASSOC)){
 				if(MSGENCRYPTED){
-                    $note['text']=sodium_crypto_aead_aes256gcm_decrypt(base64_decode($note['text']), null, AES_IV, ENCRYPTKEY);
+					$note['text']=sodium_crypto_aead_aes256gcm_decrypt(base64_decode($note['text']), null, AES_IV, ENCRYPTKEY);
 				}
 				$code['notes'][]=$note;
 			}
@@ -1392,7 +1399,9 @@ function send_linkfilter($arg=''){
 
 function send_frameset(){
 	global $I, $U, $db, $language;
-	echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd"><html><head>'.meta_html();
+	prepare_stylesheets();
+	send_headers();
+	echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd"><html lang="'.$language.'"><head>'.meta_html();
 	echo '<title>'.get_setting('chatname').'</title>';
 	print_stylesheet();
 	echo '</head>';
@@ -1544,7 +1553,7 @@ function send_notes($type){
 	}
 	if(isset($_REQUEST['text'])){
 		if(MSGENCRYPTED){
-            $_REQUEST['text']=base64_encode(sodium_crypto_aead_aes256gcm_encrypt($_REQUEST['text'], '', AES_IV, ENCRYPTKEY));
+			$_REQUEST['text']=base64_encode(sodium_crypto_aead_aes256gcm_encrypt($_REQUEST['text'], '', AES_IV, ENCRYPTKEY));
 		}
 		$time=time();
 		$stmt=$db->prepare('INSERT INTO ' . PREFIX . 'notes (type, lastedited, editedby, text) VALUES (?, ?, ?, ?);');
@@ -1578,7 +1587,7 @@ function send_notes($type){
 		$note['text']='';
 	}
 	if(MSGENCRYPTED){
-        $note['text']=sodium_crypto_aead_aes256gcm_decrypt(base64_decode($note['text']), null, AES_IV, ENCRYPTKEY);
+		$note['text']=sodium_crypto_aead_aes256gcm_decrypt(base64_decode($note['text']), null, AES_IV, ENCRYPTKEY);
 	}
 	echo "</p>".form('notes');
 	echo "$hiddendo<textarea name=\"text\">".htmlspecialchars($note['text']).'</textarea><br>';
@@ -1860,7 +1869,7 @@ function send_profile($arg=''){
 	}
 	echo "<tr><td><table id=\"ignore\"><tr><th>$I[ignore]</th><td>";
 	echo "<select name=\"ignore\" size=\"1\"><option value=\"\">$I[choose]</option>";
-	$stmt=$db->prepare('SELECT poster, style FROM ' . PREFIX . 'messages INNER JOIN (SELECT nickname, style FROM ' . PREFIX . 'sessions UNION SELECT nickname, style FROM ' . PREFIX . 'members) AS t ON (' .  PREFIX . 'messages.poster=t.nickname) WHERE poster!=? AND poster NOT IN (SELECT ign FROM ' . PREFIX . 'ignored WHERE ignby=?) GROUP BY poster ORDER BY LOWER(poster);');
+	$stmt=$db->prepare('SELECT poster, style FROM ' . PREFIX . 'messages INNER JOIN (SELECT nickname, style FROM ' . PREFIX . 'sessions UNION SELECT nickname, style FROM ' . PREFIX . 'members) AS t ON (' . PREFIX . 'messages.poster=t.nickname) WHERE poster!=? AND poster NOT IN (SELECT ign FROM ' . PREFIX . 'ignored WHERE ignby=?) GROUP BY poster ORDER BY LOWER(poster);');
 	$stmt->execute([$U['nickname'], $U['nickname']]);
 	while($nick=$stmt->fetch(PDO::FETCH_NUM)){
 		echo '<option value="'.htmlspecialchars($nick[0])."\" style=\"$nick[1]\">".htmlspecialchars($nick[0]).'</option>';
@@ -2022,16 +2031,17 @@ function send_download(){
 		$stmt=$db->prepare('SELECT filename, type, data FROM ' . PREFIX . 'files WHERE hash=?;');
 		$stmt->execute([$_REQUEST['id']]);
 		if($data=$stmt->fetch(PDO::FETCH_ASSOC)){
+			send_headers();
 			header("Content-Type: $data[type]");
 			header("Content-Disposition: filename=\"$data[filename]\"");
-			header('Pragma: no-cache');
-			header('Cache-Control: no-cache, no-store, must-revalidate, max-age=0, private');
-			header('Expires: 0');
+			header("Content-Security-Policy: default-src 'none'");
 			echo base64_decode($data['data']);
 		}else{
+			http_response_code(404);
 			send_error($I['filenotfound']);
 		}
 	}else{
+		http_response_code(404);
 		send_error($I['filenotfound']);
 	}
 }
@@ -2130,10 +2140,12 @@ function send_error($err){
 }
 
 function send_fatal_error($err){
-	global $I;
-	echo '<!DOCTYPE html><html><head>'.meta_html();
+	global $I, $language, $styles;
+	prepare_stylesheets();
+	send_headers();
+	echo '<!DOCTYPE html><html lang="'.$language.'"><head>'.meta_html();
 	echo "<title>$I[fatalerror]</title>";
-	echo "<style type=\"text/css\">body{background-color:#000000;color:#FF0033;}</style>";
+	echo "<style type=\"text/css\">$styles[fatal_error]</style>";
 	echo '</head><body>';
 	echo "<h2>$I[fatalerror]: $err</h2>";
 	print_end();
@@ -2212,8 +2224,8 @@ function create_session($setup, $nickname, $password){
 		}
 		if($ga===0){
 			send_error($I['noguests']);
-		}elseif($ga===3){
-			$U['entry']=0;
+		}elseif(in_array($ga, [2, 3], true)){
+			$U['entry'] = 0;
 		}
 		if(get_setting('englobalpass')!=0 && isset($_REQUEST['globalpass']) && $_REQUEST['globalpass']!=get_setting('globalpass')){
 			send_error($I['wrongglobalpass']);
@@ -2229,6 +2241,7 @@ function check_captcha($challenge, $captcha_code){
 		if(empty($challenge)){
 			send_error($I['wrongcaptcha']);
 		}
+		$code = '';
 		if(MEMCACHED){
 			if(!$code=$memcached->get(DBNAME . '-' . PREFIX . "captcha-$_REQUEST[challenge]")){
 				send_error($I['captchaexpire']);
@@ -2254,21 +2267,21 @@ function check_captcha($challenge, $captcha_code){
 }
 
 function is_definitely_ssl() {
-    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
-        return true;
-    }
-    if (isset($_SERVER['SERVER_PORT']) && ('443' == $_SERVER['SERVER_PORT'])) {
-        return true;
-    }
-    if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && ('https' == $_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-        return true;
-    }
-    return false;
+	if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+		return true;
+	}
+	if (isset($_SERVER['SERVER_PORT']) && ('443' == $_SERVER['SERVER_PORT'])) {
+		return true;
+	}
+	if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && ('https' === $_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+		return true;
+	}
+	return false;
 }
 
 function set_secure_cookie($name, $value){
 	if (version_compare(PHP_VERSION, '7.3.0') >= 0) {
-		setcookie($name, $value, ['expires' => 0, 'path' => '/', 'domain' => '', 'secure' => is_definitely_ssl(), 'httponly'=>true, 'samesite' => 'Strict']);
+		setcookie($name, $value, ['expires' => 0, 'path' => '/', 'domain' => '', 'secure' => is_definitely_ssl(), 'httponly' => true, 'samesite' => 'Strict']);
 	}else{
 		setcookie($name, $value, 0, '/', '', is_definitely_ssl(), true);
 	}
@@ -2347,7 +2360,7 @@ function approve_session(){
 }
 
 function check_login(){
-	global $I, $U, $db;
+	global $I, $U;
 	$ga=(int) get_setting('guestaccess');
 	if(isset($_REQUEST['session'])){
 		parse_sessions();
@@ -2378,9 +2391,7 @@ function check_login(){
 		}
 	}
 	if($U['status']==1){
-		if($ga===2 || $ga===3){
-			$stmt=$db->prepare('UPDATE ' . PREFIX . 'sessions SET entry=0 WHERE session=?;');
-			$stmt->execute([$U['session']]);
+		if(in_array($ga, [2, 3], true)){
 			send_waiting_room();
 		}
 	}
@@ -2913,7 +2924,6 @@ function validate_input(){
 			//ignored
 			return;
 		}
-		$tmp=false;
 		$stmt=$db->prepare('SELECT s.style, 0 AS inbox FROM ' . PREFIX . 'sessions AS s LEFT JOIN ' . PREFIX . 'members AS m ON (m.nickname=s.nickname) WHERE s.nickname=? AND (s.incognito=0 OR (m.eninbox!=0 AND m.eninbox<=?));');
 		$stmt->execute([$_REQUEST['sendto'], $U['status']]);
 		if(!$tmp=$stmt->fetch(PDO::FETCH_ASSOC)){
@@ -2958,13 +2968,13 @@ function validate_input(){
 				'text'		=>"<span class=\"usermsg\">$displaysend".style_this($message, $U['style']).'</span>'
 			];
 			if(MSGENCRYPTED){
-                $newmessage['text']=base64_encode(sodium_crypto_aead_aes256gcm_encrypt($newmessage['text'], '', AES_IV, ENCRYPTKEY));
+				$newmessage['text']=base64_encode(sodium_crypto_aead_aes256gcm_encrypt($newmessage['text'], '', AES_IV, ENCRYPTKEY));
 			}
 			$stmt=$db->prepare('INSERT INTO ' . PREFIX . 'inbox (postdate, postid, poster, recipient, text) VALUES(?, ?, ?, ?, ?)');
 			$stmt->execute([$newmessage['postdate'], $id[0], $newmessage['poster'], $newmessage['recipient'], $newmessage['text']]);
 		}
 		if(isset($hash) && $id){
-			if(!empty($_FILES['file']['type']) && preg_match('~^[a-z0-9/\-\.\+]*$~i', $_FILES['file']['type'])){
+			if(!empty($_FILES['file']['type']) && preg_match('~^[a-z0-9/\-.+]*$~i', $_FILES['file']['type'])){
 				$type=$_FILES['file']['type'];
 			}else{
 				$type='application/octet-stream';
@@ -3004,17 +3014,17 @@ function apply_filter($message, $poststatus, $nickname){
 function apply_linkfilter($message){
 	$filters=get_linkfilters();
 	foreach($filters as $filter){
-		$message=preg_replace_callback("/<a href=\"([^\"]+)\" target=\"_blank\">(.*?(?=<\/a>))<\/a>/iu",
+		$message=preg_replace_callback("/<a href=\"([^\"]+)\" target=\"_blank\" rel=\"noreferrer noopener\">(.*?(?=<\/a>))<\/a>/iu",
 			function ($matched) use(&$filter){
-				return "<a href=\"$matched[1]\" target=\"_blank\">".preg_replace("/$filter[match]/iu", $filter['replace'], $matched[2]).'</a>';
+				return "<a href=\"$matched[1]\" target=\"_blank\" rel=\"noreferrer noopener\">".preg_replace("/$filter[match]/iu", $filter['replace'], $matched[2]).'</a>';
 			}
 		, $message);
 	}
 	$redirect=get_setting('redirect');
 	if(get_setting('imgembed')){
-		$message=preg_replace_callback('/\[img\]\s?<a href="([^"]+)" target="_blank">(.*?(?=<\/a>))<\/a>/iu',
+		$message=preg_replace_callback('/\[img]\s?<a href="([^"]+)" target="_blank" rel="noreferrer noopener">(.*?(?=<\/a>))<\/a>/iu',
 			function ($matched){
-				return str_ireplace('[/img]', '', "<br><a href=\"$matched[1]\" target=\"_blank\"><img src=\"$matched[1]\"></a><br>");
+				return str_ireplace('[/img]', '', "<br><a href=\"$matched[1]\" target=\"_blank\" rel=\"noreferrer noopener\"><img src=\"$matched[1]\"></a><br>");
 			}
 		, $message);
 	}
@@ -3022,17 +3032,17 @@ function apply_linkfilter($message){
 		$redirect="$_SERVER[SCRIPT_NAME]?action=redirect&amp;url=";
 	}
 	if(get_setting('forceredirect')){
-		$message=preg_replace_callback('/<a href="([^"]+)" target="_blank">(.*?(?=<\/a>))<\/a>/u',
+		$message=preg_replace_callback('/<a href="([^"]+)" target="_blank" rel="noreferrer noopener">(.*?(?=<\/a>))<\/a>/u',
 			function ($matched) use($redirect){
-				return "<a href=\"$redirect".rawurlencode($matched[1])."\" target=\"_blank\">$matched[2]</a>";
+				return "<a href=\"$redirect".rawurlencode($matched[1])."\" target=\"_blank\" rel=\"noreferrer noopener\">$matched[2]</a>";
 			}
 		, $message);
-	}elseif(preg_match_all('/<a href="([^"]+)" target="_blank">(.*?(?=<\/a>))<\/a>/u', $message, $matches)){
+	}elseif(preg_match_all('/<a href="([^"]+)" target="_blank" rel="noreferrer noopener">(.*?(?=<\/a>))<\/a>/u', $message, $matches)){
 		foreach($matches[1] as $match){
 			if(!preg_match('~^http(s)?://~u', $match)){
-				$message=preg_replace_callback('/<a href="('.preg_quote($match, '/').')\" target=\"_blank\">(.*?(?=<\/a>))<\/a>/u',
+				$message=preg_replace_callback('/<a href="('.preg_quote($match, '/').')\" target=\"_blank\" rel=\"noreferrer noopener\">(.*?(?=<\/a>))<\/a>/u',
 					function ($matched) use($redirect){
-						return "<a href=\"$redirect".rawurlencode($matched[1])."\" target=\"_blank\">$matched[2]</a>";
+						return "<a href=\"$redirect".rawurlencode($matched[1])."\" target=\"_blank\" rel=\"noreferrer noopener\">$matched[2]</a>";
 					}
 				, $message);
 			}
@@ -3051,7 +3061,7 @@ function create_hotlinks($message){
 	$message=preg_replace('~([^\s<>]*:[^\s<>]*@[a-z0-9\-]+(?:\.[a-z0-9\-]+)+(?::\d+)?)(?![^<>]*>)~iu', "<<$1>>", $message); // au:th@server given
 	// 3. likely servers without any hints but not filenames like *.rar zip exe etc.
 	$message=preg_replace('~((?:[a-z0-9\-]+\.)*(?:[a-z2-7]{55}d|[a-z2-7]{16})\.onion)(?![^<>]*>)~iu', "<<$1>>", $message);// *.onion
-	$message=preg_replace('~([a-z0-9\-]+(?:\.[a-z0-9\-]+)+(?:\.(?!rar|zip|exe|gz|7z|bat|doc)[a-z]{2,}))(?=[^a-z0-9\-\.]|$)(?![^<>]*>)~iu', "<<$1>>", $message);// xxx.yyy.zzz
+	$message=preg_replace('~([a-z0-9\-]+(?:\.[a-z0-9\-]+)+(?:\.(?!rar|zip|exe|gz|7z|bat|doc)[a-z]{2,}))(?=[^a-z0-9\-.]|$)(?![^<>]*>)~iu', "<<$1>>", $message);// xxx.yyy.zzz
 	// Convert every <<....>> into proper links:
 	$message=preg_replace_callback('/<<([^<>]+)>>/u',
 		function ($matches){
@@ -3066,7 +3076,7 @@ function create_hotlinks($message){
 }
 
 function apply_mention($message){
-	return preg_replace_callback('/\@([^\s]+)/iu', function ($matched){
+	return preg_replace_callback('/@([^\s]+)/iu', function ($matched){
 		global $db;
 		$nick=htmlspecialchars_decode($matched[1]);
 		$rest='';
@@ -3146,7 +3156,7 @@ function add_system_message($mes){
 function write_message($message){
 	global $db;
 	if(MSGENCRYPTED){
-        $message['text']=base64_encode(sodium_crypto_aead_aes256gcm_encrypt($message['text'], '', AES_IV, ENCRYPTKEY));
+		$message['text']=base64_encode(sodium_crypto_aead_aes256gcm_encrypt($message['text'], '', AES_IV, ENCRYPTKEY));
 	}
 	$stmt=$db->prepare('INSERT INTO ' . PREFIX . 'messages (postdate, poststatus, poster, recipient, text, delstatus) VALUES (?, ?, ?, ?, ?, ?);');
 	$stmt->execute([$message['postdate'], $message['poststatus'], $message['poster'], $message['recipient'], $message['text'], $message['delstatus']]);
@@ -3267,7 +3277,7 @@ function print_messages($delstatus=0){
 
 function prepare_message_print(&$message, $removeEmbed){
 	if(MSGENCRYPTED){
-        $message['text']=sodium_crypto_aead_aes256gcm_decrypt(base64_decode($message['text']), null, AES_IV, ENCRYPTKEY);
+		$message['text']=sodium_crypto_aead_aes256gcm_decrypt(base64_decode($message['text']), null, AES_IV, ENCRYPTKEY);
 	}
 	if($removeEmbed){
 		$message['text']=preg_replace_callback('/<img src="([^"]+)"><\/a>/u',
@@ -3281,16 +3291,22 @@ function prepare_message_print(&$message, $removeEmbed){
 // this and that
 
 function send_headers(){
+	global $styles;
 	header('Content-Type: text/html; charset=UTF-8');
 	header('Pragma: no-cache');
-	header('Cache-Control: no-cache, no-store, must-revalidate, max-age=0');
+	header('Cache-Control: no-cache, no-store, must-revalidate, max-age=0, private');
 	header('Expires: 0');
 	header('Referrer-Policy: no-referrer');
-	header("Content-Security-Policy: default-src 'self'; img-src * data:; media-src * data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'");
-    header('X-Content-Type-Options: nosniff');
-    header('X-Frame-Options: sameorigin');
-    header('X-XSS-Protection: 1; mode=block');
-	if($_SERVER['REQUEST_METHOD']==='HEAD'){
+	header("Permissions-Policy: accelerometer 'none'; ambient-light-sensor 'none'; autoplay 'none'; battery 'none'; camera 'none'; cross-origin-isolated 'none'; display-capture 'none'; document-domain 'none'; encrypted-media 'none'; geolocation 'none'; fullscreen 'none'; execution-while-not-rendered 'none'; execution-while-out-of-viewport 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'none'; midi 'none'; navigation-override 'none'; payment 'none'; picture-in-picture 'none'; publickey-credentials-get 'none'; screen-wake-lock 'none'; sync-xhr 'none'; usb 'none'; web-share 'none'; xr-spatial-tracking 'none'; clipboard-read 'none'; clipboard-write 'none'; gamepad 'none'; speaker-selection 'none'; conversion-measurement 'none'; focus-without-user-activation 'none'; hid 'none'; idle-detection 'none'; sync-script 'none'; vertical-scroll 'none'; serial 'none'; trust-token-redemption 'none';");
+	$style_hashes = '';
+	foreach($styles as $style) {
+		$style_hashes .= " 'sha256-".base64_encode(hash('sha256', $style, true))."'";
+	}
+	header("Content-Security-Policy: base-uri 'self'; default-src 'none'; font-src 'self'; form-action 'self'; frame-ancestors 'self'; frame-src 'self'; img-src * data:; media-src * data:; style-src 'self' 'unsafe-inline'"); // $style_hashes"); //we can add computed hashes as soon as all inline css is moved to default css
+	header('X-Content-Type-Options: nosniff');
+	header('X-Frame-Options: sameorigin');
+	header('X-XSS-Protection: 1; mode=block');
+	if($_SERVER['REQUEST_METHOD'] === 'HEAD'){
 		exit; // headers sent, no further processing needed
 	}
 }
@@ -3523,7 +3539,7 @@ function destroy_chat($C){
 	$db->exec('DROP TABLE ' . PREFIX . 'settings;');
 	if(MEMCACHED){
 		$memcached->delete(DBNAME . '-' . PREFIX . 'filter');
-		$memcached->delete(DBANEM . '-' . PREFIX . 'linkfilter');
+		$memcached->delete(DBNAME . '-' . PREFIX . 'linkfilter');
 		foreach($C['settings'] as $setting){
 			$memcached->delete(DBNAME . '-' . PREFIX . "settings-$setting");
 		}
@@ -4035,9 +4051,9 @@ function update_db(){
 		$stmt=$db->prepare('UPDATE ' . PREFIX . 'messages SET text=? WHERE id=?;');
 		while($message=$result->fetch(PDO::FETCH_ASSOC)){
 			if(MSGENCRYPTED){
-                $message['text']=base64_encode(sodium_crypto_aead_aes256gcm_encrypt($message['text'], '', AES_IV, ENCRYPTKEY));
+				$message['text']=base64_encode(sodium_crypto_aead_aes256gcm_encrypt($message['text'], '', AES_IV, ENCRYPTKEY));
 			}else{
-                $message['text']=sodium_crypto_aead_aes256gcm_decrypt(base64_decode($message['text']), null, AES_IV, ENCRYPTKEY);
+				$message['text']=sodium_crypto_aead_aes256gcm_decrypt(base64_decode($message['text']), null, AES_IV, ENCRYPTKEY);
 			}
 			$stmt->execute([$message['text'], $message['id']]);
 		}
@@ -4045,9 +4061,9 @@ function update_db(){
 		$stmt=$db->prepare('UPDATE ' . PREFIX . 'notes SET text=? WHERE id=?;');
 		while($message=$result->fetch(PDO::FETCH_ASSOC)){
 			if(MSGENCRYPTED){
-                $message['text']=base64_encode(sodium_crypto_aead_aes256gcm_encrypt($message['text'], '', AES_IV, ENCRYPTKEY));
+				$message['text']=base64_encode(sodium_crypto_aead_aes256gcm_encrypt($message['text'], '', AES_IV, ENCRYPTKEY));
 			}else{
-                $message['text']=sodium_crypto_aead_aes256gcm_decrypt(base64_decode($message['text']), null, AES_IV, ENCRYPTKEY);
+				$message['text']=sodium_crypto_aead_aes256gcm_decrypt(base64_decode($message['text']), null, AES_IV, ENCRYPTKEY);
 			}
 			$stmt->execute([$message['text'], $message['id']]);
 		}
@@ -4205,6 +4221,10 @@ function load_lang(){
 	}
 }
 
+function isPOST(){
+    return $_SERVER['REQUEST_METHOD'] === 'POST';
+}
+
 function load_config(){
 	mb_internal_encoding('UTF-8');
 	define('VERSION', '1.24'); // Script version
@@ -4229,20 +4249,20 @@ function load_config(){
 	}
 	define('COOKIENAME', PREFIX . 'chat_session'); // Cookie name storing the session information
 	define('LANG', 'en'); // Default language
-    if (MSGENCRYPTED){
-        if (version_compare(PHP_VERSION, '7.2.0') < 0) {
-            die("You need at least PHP >= 7.2.x");
-        }
-        //Do not touch: Compute real keys needed by encryption functions
-        if (strlen(ENCRYPTKEY_PASS) !== SODIUM_CRYPTO_AEAD_AES256GCM_KEYBYTES){
-            define('ENCRYPTKEY', substr(hash("sha512/256",ENCRYPTKEY_PASS),0, SODIUM_CRYPTO_AEAD_AES256GCM_KEYBYTES));
-        }else{
-            define('ENCRYPTKEY', ENCRYPTKEY_PASS);
-        }
-        if (strlen(AES_IV_PASS) !== SODIUM_CRYPTO_AEAD_AES256GCM_NPUBBYTES){
-            define('AES_IV', substr(hash("sha512/256",AES_IV_PASS), 0, SODIUM_CRYPTO_AEAD_AES256GCM_NPUBBYTES));
-        }else{
-            define('AES_IV', AES_IV_PASS);
-        }
-    }
+	if (MSGENCRYPTED){
+		if (version_compare(PHP_VERSION, '7.2.0') < 0) {
+			die("You need at least PHP >= 7.2.x");
+		}
+		//Do not touch: Compute real keys needed by encryption functions
+		if (strlen(ENCRYPTKEY_PASS) !== SODIUM_CRYPTO_AEAD_AES256GCM_KEYBYTES){
+			define('ENCRYPTKEY', substr(hash("sha512/256",ENCRYPTKEY_PASS),0, SODIUM_CRYPTO_AEAD_AES256GCM_KEYBYTES));
+		}else{
+			define('ENCRYPTKEY', ENCRYPTKEY_PASS);
+		}
+		if (strlen(AES_IV_PASS) !== SODIUM_CRYPTO_AEAD_AES256GCM_NPUBBYTES){
+			define('AES_IV', substr(hash("sha512/256",AES_IV_PASS), 0, SODIUM_CRYPTO_AEAD_AES256GCM_NPUBBYTES));
+		}else{
+			define('AES_IV', AES_IV_PASS);
+		}
+	}
 }

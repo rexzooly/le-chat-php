@@ -2,7 +2,7 @@
 /*
 * LE CHAT-PHP - a PHP Chat based on LE CHAT - Czech translation
 *
-* Copyright (C) 2015-2018 Daniel Winzen <d@winzen4.de>
+* Copyright (C) 2015-2020 Daniel Winzen <daniel@danwin1210.me>
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 */
 
 //Native language name: čeština
-$I=[
+$T=[
 	'nodb' => 'Chyba databáze!',
 	'nodbsetup' => 'Žádné připojení k databázi, prosím vytvořte databázi a upravte script pro použití správné databáze se zadaným uživatelským jménem a heslem!',
 	'changelang' => 'Změnit jazyk:',

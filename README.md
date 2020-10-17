@@ -72,11 +72,12 @@ Copy **lang_en.php** and rename it to **lang_YOUR_LANGCODE**.php
 Then edit the file and translate the messages into your language and change **$I** to **$T** at the top.
 If you ever use a **`'`** character, you have to escape it by using **`\'`** instead or the script will fail.
 When you are done, you have to edit the chat script, to include your translation. Simply add a line with
-		'lang_code' => 'Language name',
+```php
+'lang_code' => 'Language name'
+```
 to the **$L** array in the **load_lang()** function at the bottom, similar to what I did for the German translation.
 Please share your translation with me, so I can add it to the official version.
 To update your translation, you can copy each new string to your translation file or edit the automated **lang_update.php** script to reflect you language and run it.
-<br/>
 <br/>
 <br/>
 
@@ -93,8 +94,6 @@ The following should be escaped by putting `\` in front of it, if you are trying
 I used `/` as delimiter, so you will have to escape that, too. The only options I used is `i` to make the regex case insensitive.
 If you want to test your regex, before applying you can use [this site](http://www.phpliveregex.com/) and enter your Regex and Replacement there and click on preg_replace.
 If you never used regex before, check out [this starting guide](http://docs.activestate.com/komodo/4.4/regex-intro.html) to begin with regular expressions.
-<br/>
-<br/>
 <br/>
 <br/>
 

@@ -1,15 +1,17 @@
 General Information:
 --------------------
-[![Original](https://img.shields.io/badge/Original-LE--CHAT--PHP-green)](https://github.com/DanWin/le-chat-php/)<br/>
+[![Original](https://img.shields.io/badge/Forked-LE--CHAT--PHP-green)](https://github.com/DanWin/le-chat-php/)<br/>
 This script is a fork of **LE CHAT PHP** by **DanWin** An up-to-date copy of his script can be found here https://github.com/DanWin/le-chat-php
 <br/>
 <br/>
-[![History](https://img.shields.io/badge/History-LE--CHAT-green)](https://4fvfamdpoulu2nms.onion.to/lechat/)<br/>
+[![Original](https://img.shields.io/badge/Original-LE--CHAT-green)](https://4fvfamdpoulu2nms.onion.to/lechat/)<br/>
 The original perl **LE CHAT** script by **Lucky Eddie** can be found at [![History](https://img.shields.io/badge/Onion-green?logo=tor)](http://4fvfamdpoulu2nms.onion/lechat/) [his site](http://4fvfamdpoulu2nms.onion/lechat/) or via a tor2web proxy like [this one](https://4fvfamdpoulu2nms.onion.to/lechat/) if you don't have Tor installed.
 <br/>
 <br/>
 ![Please Note](https://img.shields.io/badge/Note-Warning-red?logo=AdBlock)<br/>
 Please use the **Tor** links with care, people are able to do illegal activities within the **Tor** network, we are not hold responsible for their's/your actions, please use with care.
+<br/>
+<br/>
 <br/>
 <br/>
 [![Tipbit](https://img.shields.io/badge/Tipbit-LE-informational)](#)<br/>

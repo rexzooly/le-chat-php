@@ -4,7 +4,7 @@ The Cat PHP - General Information:
 This script is a fork of **LE CHAT PHP** by **DanWin** An up-to-date copy of his script can be found here https://github.com/DanWin/le-chat-php
 <br/>
 <br/>
-[![Fork Based](https://img.shields.io/badge/Base-Fork-Based-On-green)](#) 1.24.1<br/>
+[![Fork](https://img.shields.io/badge/Based-Fork-green)](#) DanWin Le Chat PHP 1.24.1<br/>
 <br/>
 [![Original](https://img.shields.io/badge/Original-LE--CHAT-green)](https://4fvfamdpoulu2nms.onion.to/lechat/)<br/>
 The original perl **LE CHAT** script by **Lucky Eddie** can be found at [![History](https://img.shields.io/badge/Onion-green?logo=tor)](http://4fvfamdpoulu2nms.onion/lechat/) [his site](http://4fvfamdpoulu2nms.onion/lechat/) or via a tor2web proxy like [this one](https://4fvfamdpoulu2nms.onion.to/lechat/) if you don't have Tor installed.

@@ -24,10 +24,10 @@ It may even be the French word for **"the"** if you prefer. Translated from *Fre
 Features:
 ---------
 
-* ![[**Onion**:]](https://img.shields.io/badge/Onion-green?logo=tor&logoColor=white) Optimized for Tor
-* ![[**JS**:]](https://img.shields.io/badge/JS-green?logo=JavaScript&logoColor=white) No JavaScript needed
-* ![[**Cookies**:]](https://img.shields.io/badge/Cookies-green) Supported, but not needed
-* ![[**Stop Bots**:]](https://img.shields.io/badge/Stop-Bots-green) Captcha
+* ![[**Onion**:]](https://img.shields.io/badge/Onion:-green?logo=tor&logoColor=white) Optimized for Tor
+* ![[**JS**:]](https://img.shields.io/badge/JS:-green?logo=JavaScript&logoColor=white) No JavaScript needed
+* ![[**Cookies**:]](https://img.shields.io/badge/Cookies:-green) Supported, but not needed
+* ![[**Stop Bots**:]](https://img.shields.io/badge/Stop%20Bots:-green) Captcha
 * ![[**Language**:]](https://img.shields.io/badge/Dialect-green?logo=Google%20Translate&logoColor=white) Multiple languages
 * ![[**Users**:]](https://img.shields.io/badge/Users-green?logo=Opsgenie&logoColor=white) Staff, Members and guests
 * ![[**Guests:**:]](https://img.shields.io/badge/Guests-green?logo=Google%20Classroom&logoColor=white) Waiting room for guests

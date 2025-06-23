@@ -32,6 +32,12 @@
 * 9 - Private messages
 */
 
+/*
+* Where to edit the script settings:
+* All Software Settings changable via the script and not the admin panel can
+* be found around 4960/4970 look for load_config()
+*/
+
 if (!extension_loaded('gettext')) {
 	prepare_stylesheets('fatal_error');
 	send_headers();
@@ -116,18 +122,20 @@ function route(): void
 			}
 		}elseif(isset($_POST['message']) && isset($_POST['sendto'])){
 			if($_POST['sendto']!=='s *'){
-				if($U['status']==='1'){ // Check if user if Guest
-					$noguespm=(bool)  get_setting('noguestpm'); // get the Guest PM settings
+				if($U['status']==='1'){
+					$noguespm=(bool)  get_setting('noguestpm');
 					if(!$noguespm){
-						send_post(validate_input());
+						send_post('E1' . validate_input());
 					}else{
-						system_pm('noguestpm'); // Return a PM from the System to tell the guest it didn't work/
+						system_pm('noguestpm');
 					}
 				}else{
-					send_post(validate_input()); // Not a guest
+					// Not a guest
+					send_post(validate_input());
 				}
 			}else{
-				send_post(validate_input()); // Sent to everyone
+				// Sent to everyone
+				send_post(validate_input());
 			}
 		}
 		send_post();
@@ -3362,11 +3370,10 @@ function add_user_defaults(string $password): void
 	$U['exiting']=0;
 }
 
-// Sending system messages via PM to users
-/* This can be used for many different warnings or information*/
+// message handling
 function system_pm(string $type) : string {
 	global $U;
-	if($type == 'noguestpm'){ // Disabled Guest PM Message.
+	if($type == 'noguestpm'){
 		add_system_pm_message('[<span style="color:red;">System</span> - <span style="' . $U['style'] . '">' . $U['nickname'] . '</span>] <span style="color:yellow;">Unable to send private messages while your in guest mode.</span>', $U['nickname'], '');
 	}
 	return '';	
@@ -4957,7 +4964,7 @@ function load_lang(): void
 
 function load_config(): void
 {
-	define('VERSION', '1.24.1'); // Script version
+	define('VERSION', '1.24.2'); // Script version
 	define('DBVERSION', 48); // Database layout version
 	define('MSGENCRYPTED', false); // Store messages encrypted in the database to prevent other database users from reading them - true/false - visit the setup page after editing!
 	define('ENCRYPTKEY_PASS', 'MY_SECRET_KEY'); // Recommended length: 32. Encryption key for messages
@@ -4997,3 +5004,4 @@ function load_config(): void
 	}
 	//define('RESET_SUPERADMIN_PASSWORD', 'changeme'); //Use this to reset your superadmin password in case you forgot it
 }
+?>
